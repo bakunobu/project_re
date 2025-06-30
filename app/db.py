@@ -342,5 +342,54 @@ class Filial(Base):
         unique=True
     )
     
+
+class SchoolLink(Base):
+    __tablename__ = 'school_link'
+    id = Column(
+        'record_id',
+        Integer, primary_key=True
+    )
+    
+    school_id = Column(
+        'school_id',
+        Integer,
+        ForeignKey('school.school_id'),
+        nullable=False
+    )
+    
+    street_id = Column(
+        'street_id',
+        Integer,
+        ForeignKey('street.street_id'),
+    )
+    
+    building = Column(
+        'building',
+        String(16),
+        unique=False,
+        nullable=False
+        )
+    
+    corpus = Column(
+        'corpus',
+        String(16),
+        unique=False,
+        nullable=True
+        )
+    
+    stroenie = Column(
+        'stroenie',
+        String(16),
+        unique=False,
+        nullable=True
+        )
+    
+    update_dt = Column(
+        'update_dt',
+        Text,
+        nullable=True
+    )
+    
+    
 metadata_obj = Base.metadata
 metadata_obj.create_all(engine)
