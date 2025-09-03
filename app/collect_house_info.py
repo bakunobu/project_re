@@ -104,7 +104,6 @@ for i in tqdm(range(3, 33)):
             bsObj = BeautifulSoup(html.read(), 'html.parser')
 
             links = bsObj.find_all('a', href=re.compile(re_expr))
-            print(links)
             for link in links:
                 house_info = get_building_info(link.attrs['href'])
                 building_info = Building(

@@ -1,42 +1,27 @@
 
 from typing import List
 
-def missingNumber(nums: List[int]) -> int:
-    nums.sort()
-    if len (nums) == 0:
-        return 0
-    elif len(nums) == 1:
-        if nums[0] == 0:
-            return 1
+class Solution:
+    def fairCandySwap(self, aliceSizes: List[int], bobSizes: List[int]) -> List[int]:
+        aliceSizes.sort()
+        bobSizes.sort()
+        if sum(aliceSizes) > sum(bobSizes):
+            candidates = [x for x in aliceSizes if x > max(bobSizes)]
+            print(candidates)
+            for i in bobSizes:
+                for j in candidates:
+                    if sum(aliceSizes) - j + i == sum(bobSizes) + j - i:
+                        return [j, i]
         else:
-            return 0
-    lb = 0
-    rb = len(nums)
-    while lb < rb:
-        i = (lb + rb) // 2
-        print('...',i)
-        if i == len(nums) - 1:
-            if nums[i] == i:
-                return i+1
-            else:
-                return i
-            
-        if nums[i] == i:
-            if nums[i + 1] == i + 1:
-                lb = i
-            else:
-                return i + 1
-        elif nums[i] > i:
-            print('here')
-            if i == 0:
-                return 0
-            else:
-                if num[i-1] == i - 1:
-                    if i == 1:
-                        return 1
-                    return i
-                else:
-                    rb = i
-                    
-print(missingNumber([0, 2]))
- 
+            candidates = [x for x in bobSizes if x > max(aliceSizes)]
+            print(candidates)
+            for i in aliceSizes:
+                for j in candidates:
+                    print(i, j)
+                    if sum(aliceSizes) + j - i == sum(bobSizes) - j + i:
+                        return [i, j]
+    
+
+aliceSizes = [8,73,2,86,32]
+bobSizes = [56,5,67,100,31]
+print(Solution().fairCandySwap(aliceSizes, bobSizes))
